@@ -123,7 +123,7 @@
 
 	  // 重定义meplayer
 	  root.mePlayer = {
-	    play: play,
+	    //play: play,
 	    pause: pause,
 	    toggleTheme: toggleTheme
 
@@ -135,6 +135,7 @@
 	    audio.addEventListener('timeupdate', handleTimeUpdate);
 	    playBtn.addEventListener('click', handlePlayClick);
 	    timeLine.addEventListener('click', handleTimeLineClick);
+	    audio.addEventListener('play', handleAudioStart);
 	  }
 
 	  function handleAudioEnd() {
@@ -188,8 +189,10 @@
 	          utils.addClass(tempLrcLineNext, 'meplayer-lyric-next');
 	        }
 
-	        lyricArea.style.webkitTransform = 'translateY(-' + 20 * tempLrcIndex + 'px)';
-	        lyricArea.style.transform = 'translateY(-' + 20 * tempLrcIndex + 'px)';
+	        //lyricArea.style.webkitTransform = 'translateY(-' + 20 * tempLrcIndex + 'px)';
+	        //lyricArea.style.transform = 'translateY(-' + 20 * tempLrcIndex + 'px)';
+	        lyricArea.style.webkitTransform = 'translateY(-' + tempLrcLines[tempLrcIndex].offsetTop + 'px)';
+	        lyricArea.style.transform = 'translateY(-' + tempLrcLines[tempLrcIndex].offsetTop + 'px)';
 	      }
 	    }
 	  }
@@ -246,7 +249,14 @@
 	    audio.currentTime = (clickPercent * duration).toFixed(0);
 	  }
 
-	  function play() {
+	  //function play() {
+	  //  if (audio.paused) {
+	  //    utils.addClass(meplayerContainer, 'meplayer-isplaying');
+	  //    audio.play();
+	  //  }
+	  //}
+
+	  function handleAudioStart() {
 	    if (audio.paused) {
 	      utils.addClass(meplayerContainer, 'meplayer-isplaying');
 	      audio.play();
